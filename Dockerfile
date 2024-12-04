@@ -2,14 +2,12 @@ FROM node:14
 
 WORKDIR /journal_app
 
-COPY Backend_Image/package.json /journal_app/
 
-COPY Backend_Image/package-lock.json /journal_app/
+COPY Backend_Image/package*.json ./
 
 RUN npm install
 
-COPY Backend_Image/bin /journal_app/bin
-COPY Backend_Image/src /journal_app/src
+COPY Backend_Image/ ./
 
 EXPOSE 3000
 
