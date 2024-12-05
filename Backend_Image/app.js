@@ -4,10 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./src/routes/index');
-var usersRouter = require('./src/routes/users');
+const imageRouter = require('./src/routes/imageRoutes');
 
 var app = express();
+
 const cors = require("cors");
 
 const corsOptions = {
@@ -15,7 +15,7 @@ const corsOptions = {
 };
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
@@ -24,14 +24,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', imageRouter);
 
 app.use(cors(corsOptions))
 
-const controller = require("./controller.js");
-
-app.get("/hello", controller.hello);
+const controller = require("./src/controllers/imageController.js");
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
