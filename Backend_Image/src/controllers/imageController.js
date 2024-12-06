@@ -7,16 +7,9 @@ const createBinary = async (req, res) => {
     }
 
     try {
-        const base64Image = req.file.buffer.toString('base64');
 
-        const binary = {
-            resourceType: 'Binary',
-            contentType: req.file.mimetype,
-            data: base64Image,
-        };
-
-        const response = await axios.post(FHIR_SERVER_BINARY_URL, binary, {
-            headers: { 'Content-Type': 'application/json' },
+        const response = await axios.post(FHIR_SERVER_BINARY_URL, req.file.buffer, {
+            headers: { 'Content-Type': req.file.mimetype },
         });
 
         const locationHeader = response.headers["location"];
