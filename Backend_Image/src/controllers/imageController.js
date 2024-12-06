@@ -1,7 +1,7 @@
 const axios = require('axios');
-const { FHIR_SERVER_MEDIA_URL } = require('../config/fhirConfig');
+const { FHIR_SERVER_BINARY_URL } = require('../config/fhirConfig');
 
-const uploadImage = async (req, res) => {
+const createBinary = async (req, res) => {
     if (!req.file) {
         return res.status(400).send('No image uploaded');
     }
@@ -9,33 +9,20 @@ const uploadImage = async (req, res) => {
     try {
         const base64Image = req.file.buffer.toString('base64');
 
-        const mediaResource = {
-            resourceType: 'Media',
-            type: {
-                coding: [
-                    {
-                        system: 'http://terminology.hl7.org/CodeSystem/media-type',
-                        code: 'image',
-                        display: 'Image',
-                    },
-                ],
-            },
-            content: {
-                attachment: {
-                    contentType: req.file.mimetype,
-                    data: base64Image,
-                    title: req.file.originalname,
-                },
-            },
+        const binary = {
+            resourceType: 'Binary',
+            contentType: req.file.mimetype,
+            data: base64Image,
         };
 
-        const response = await axios.post(FHIR_SERVER_MEDIA_URL, mediaResource, {
+        const response = await axios.post(FHIR_SERVER_BINARY_URL, binary, {
             headers: { 'Content-Type': 'application/json' },
         });
 
-        const mediaId = response.data.id;
+        const locationHeader = response.headers["location"];
+        const binaryId = locationHeader.split('/')[5];
 
-        return res.status(201).send(mediaId);
+        return res.status(201).send(binaryId);
 
     } catch (error) {
         console.error('Error uploading image:', error);
@@ -44,5 +31,5 @@ const uploadImage = async (req, res) => {
 };
 
 module.exports = {
-    uploadImage
+    createBinary
 };

@@ -1,9 +1,9 @@
 const express = require('express');
 const upload = require('../middlewares/fileMiddleware');
-const { uploadImage } = require('../controllers/imageController');
+const { createBinary } = require('../controllers/imageController');
 
 const router = express.Router();
 
-router.post('/upload-image', upload.single("image"), uploadImage);
+router.post('/create-binary', upload.single("image"), createBinary);
 
 module.exports = router;
