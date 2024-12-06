@@ -11,8 +11,10 @@ var app = express();
 const cors = require("cors");
 
 const corsOptions = {
-  origin: "http://localhost:3000"
+  origin: ["http://localhost:3000", "http://localhost:8080"]
 };
+
+app.use(cors(corsOptions))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'src/views'));
@@ -26,7 +28,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', imageRouter);
 
-app.use(cors(corsOptions))
 
 const controller = require("./src/controllers/imageController.js");
 
