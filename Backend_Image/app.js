@@ -11,7 +11,8 @@ var app = express();
 const cors = require("cors");
 
 const corsOptions = {
-  origin: ["http://localhost:3000", "http://localhost:8080"]
+  origin: ["http://localhost:3000", "http://localhost:8080", "https://journal-app-frontend.app.cloud.cbh.kth.se:3000",
+    "https://journal-app-hapi.app.cloud.cbh.kth.se:8080"]
 };
 
 app.use(cors(corsOptions))
