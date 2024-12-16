@@ -2,11 +2,11 @@ FROM node:14
 
 WORKDIR /journal_app
 
-COPY Backend_Image/package*.json ./
+COPY Lab3_Image/package*.json ./
 
 RUN npm install
 
-COPY Backend_Image/ ./
+COPY Lab3_Image/ ./
 
 EXPOSE 3001
 
