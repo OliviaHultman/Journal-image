@@ -6,6 +6,8 @@ COPY Lab3_Image/package*.json ./
 
 RUN npm install
 
+RUN chmod -R 755 node_modules
+
 COPY Lab3_Image/ ./
 
 RUN npm test
