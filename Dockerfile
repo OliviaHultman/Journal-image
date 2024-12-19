@@ -5,12 +5,12 @@ WORKDIR /journal_app
 COPY Lab3_Image/package*.json ./
 
 RUN npm install
-
+RUN npm install jest
 RUN chmod -R 755 node_modules
 
 COPY Lab3_Image/ ./
 
-RUN npm test
+RUN npx jest
 
 EXPOSE 3001
 
