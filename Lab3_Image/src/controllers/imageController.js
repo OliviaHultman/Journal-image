@@ -7,7 +7,6 @@ const createBinary = async (req, res) => {
     }
 
     try {
-
         const response = await axios.post(FHIR_SERVER_BINARY_URL, req.file.buffer, {
             headers: { 'Content-Type': req.file.mimetype },
         });
