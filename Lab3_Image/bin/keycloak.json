@@ -1,0 +1,14 @@
+{
+  "realm": "journal_realm",
+  "auth-server-url": "https://journal-app-keycloak.app.cloud.cbh.kth.se",
+  "ssl-required": "external",
+  "resource": "microservice-image",
+  "verify-token-audience": false,
+  "credentials": {
+    "secret": "vs0JojSdLFKSR8RYq7OWmCupDcNEnzmH"
+  },
+  "confidential-port": 0,
+  "policy-enforcer": {
+    "credentials": {}
+  }
+}

@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var keycloak = require("./src/middlewares/authMiddleware")
 
 const imageRouter = require('./src/routes/imageRoutes');
 
@@ -12,7 +13,7 @@ const cors = require("cors");
 
 const corsOptions = {
   origin: ["http://localhost:3000", "http://localhost:8080", "https://journal-app-frontend.app.cloud.cbh.kth.se",
-    "https://journal-app-hapi.app.cloud.cbh.kth.se"]
+    "https://journal-app-hapi.app.cloud.cbh.kth.se", "https://journal-app-keycloak.app.cloud.cbh.kth.se"]
 };
 
 app.use(cors(corsOptions))
@@ -26,6 +27,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.set( 'trust proxy', true );
+
+app.use(keycloak.middleware());
 
 app.use('/', imageRouter);
 
