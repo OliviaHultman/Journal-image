@@ -1,6 +1,6 @@
 const Keycloak = require("keycloak-connect");
 const axios = require('axios');
-const { FHIR_SERVER_PATIENT_URL, FHIR_SERVER_OBSERVATION_URL} = require('../config/fhirConfig');
+const { FHIR_SERVER_PATIENT_URL, FHIR_SERVER_OBSERVATION_URL, PATIENT_SYSTEM} = require('../config/fhirConfig');
 
 const keycloak = new Keycloak({});
 
@@ -30,9 +30,17 @@ const protectByIdAndRole = async (token, req) => {
             return false;
         }
 
-        const patientIdentifier = await patientResponse.data.identifier[0].value;
-        
-        return patientIdentifier === token.content.preferred_username;
+        const patientIdentifiers = patientResponse.data.identifier;
+
+        let patientIdentifierValue = null
+
+        for (const patientIdentifier of patientIdentifiers) {
+            if (patientIdentifier.system === PATIENT_SYSTEM) {
+                patientIdentifierValue = patientIdentifier.value
+            }
+        }
+
+        return patientIdentifierValue === token.content.preferred_username;
     }
     catch (error) {
         console.error('Error loading patient:', error);
