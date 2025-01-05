@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { FHIR_SERVER_BINARY_URL } = require('../config/fhirConfig');
+const { FHIR_SERVER_BINARY_URL} = require('../config/fhirConfig');
 
 const createBinary = async (req, res) => {
     if (!req.file) {
@@ -27,9 +27,8 @@ const createBinary = async (req, res) => {
 };
 
 const getBinaryById = async (req, res) => {
-    const { imageId } = req.query;
-
     try {
+        const { imageId } = req.query;
         const response = await axios.get(`${FHIR_SERVER_BINARY_URL}/${imageId}`, {
             responseType: "stream"
         });

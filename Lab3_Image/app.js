@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var keycloak = require("./src/middlewares/authMiddleware")
+var { keycloak } = require("./src/middlewares/authMiddleware")
 
 const imageRouter = require('./src/routes/imageRoutes');
 
