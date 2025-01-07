@@ -8,7 +8,7 @@ jobs:
     kthcloud-pipeline:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout Repository
+            - name: Checkout repository
               uses: actions/checkout@v3
 
             - name: Set up Node.js
@@ -21,7 +21,7 @@ jobs:
                 cd Lab3_Image
                 npm install
                 
-            - name: Run Tests
+            - name: Run tests
               run: |
                 cd Lab3_Image
                 npx jest --ci
@@ -33,7 +33,7 @@ jobs:
                 username: ${{ secrets.DOCKER_USERNAME }}
                 password: ${{ secrets.DOCKER_PASSWORD }}
                 
-            - name: Build and push
+            - name: Build and push image
               uses: docker/build-push-action@v5
               with:
                 push: true
